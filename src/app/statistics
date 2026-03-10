@@ -1,0 +1,56 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import BottomNav from "@/components/BottomNav"
+import { getTodayHistory, type SignalItem } from "@/lib/quantumApi"
+
+export default function StatisticsPage() {
+  const [history, setHistory] = useState<SignalItem[]>([])
+
+  useEffect(() => {
+    setHistory(getTodayHistory())
+  }, [])
+
+  const total = history.length
+  const activeSignals = history.filter((h) => h.confidence >= 70).length
+  const bestAsset =
+    history.length > 0
+      ? [...history].sort((a, b) => b.confidence - a.confidence)[0]?.asset
+      : "--"
+
+  const winRate = total
+    ? ((history.filter((h) => h.confidence >= 75).length / total) * 100).toFixed(1)
+    : "0"
+
+  return (
+    <div className="min-h-screen bg-slate-950 pb-24 text-white">
+      <div className="mx-auto max-w-md p-4">
+        <h1 className="text-3xl font-bold">Statistics</h1>
+
+        <div className="mt-6 space-y-4">
+          <div className="rounded-2xl bg-slate-900 p-4">
+            <p>Total Signals Today</p>
+            <p className="text-3xl font-bold text-cyan-400">{total}</p>
+          </div>
+
+          <div className="rounded-2xl bg-slate-900 p-4">
+            <p>Win Rate</p>
+            <p className="text-3xl font-bold text-emerald-400">{winRate}%</p>
+          </div>
+
+          <div className="rounded-2xl bg-slate-900 p-4">
+            <p>Best Asset</p>
+            <p className="text-3xl font-bold text-amber-400">{bestAsset}</p>
+          </div>
+
+          <div className="rounded-2xl bg-slate-900 p-4">
+            <p>Active Signals</p>
+            <p className="text-3xl font-bold text-cyan-400">{activeSignals}</p>
+          </div>
+        </div>
+      </div>
+
+      <BottomNav />
+    </div>
+  )
+}
