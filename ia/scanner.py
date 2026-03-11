@@ -1,4 +1,5 @@
 import random
+import time
 
 signals = []
 
@@ -22,3 +23,12 @@ def analyze_market():
 
     signals.clear()
     signals.append(signal)
+
+
+def start_scanner():
+
+    while True:
+
+        analyze_market()
+
+        time.sleep(30)
