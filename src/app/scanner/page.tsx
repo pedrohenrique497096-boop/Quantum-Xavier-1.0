@@ -1,56 +1,29 @@
 "use client"
 
-import { useEffect } from "react"
 import BottomNav from "@/components/BottomNav"
+import TradingChart from "@/components/TradingChart"
 
 export default function Scanner(){
 
-useEffect(()=>{
-
-const script = document.createElement("script")
-script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
-script.async = true
-
-script.innerHTML = JSON.stringify({
-autosize:true,
-symbol:"BINANCE:BTCUSDT",
-interval:"15",
-timezone:"Etc/UTC",
-theme:"dark",
-style:"1",
-locale:"en",
-hide_side_toolbar:false,
-allow_symbol_change:true,
-container_id:"tv_chart"
-})
-
-document.getElementById("tv_chart")?.appendChild(script)
-
-},[])
-
 return(
 
-<div className="min-h-screen bg-slate-950 text-white pb-24">
+<div className="min-h-screen bg-slate-950 text-white p-4 pb-24">
 
-<div className="p-4">
-
-<h1 className="text-3xl font-bold mb-4">
+<h1 className="text-3xl font-bold mb-6">
 Scanner IA
 </h1>
 
-<div id="tv_chart" style={{height:"500px"}} />
+<TradingChart/>
 
-<div className="mt-6 p-4 bg-slate-900 rounded-xl border border-slate-800">
+<div className="mt-6 bg-slate-900 border border-slate-800 p-4 rounded-xl">
 
-<p className="text-cyan-400 mb-2">
-Quantum Xavier AI Analysis
+<p className="text-cyan-400 text-lg mb-2">
+Análise de IA Quantum Xavier
 </p>
 
 <p className="text-slate-300 text-sm">
-Scanning liquidity zones, trend structure and institutional levels...
+Analisando zonas de liquidez, estrutura de tendências e níveis institucionais...
 </p>
-
-</div>
 
 </div>
 
