@@ -5,13 +5,13 @@ import { createChart } from "lightweight-charts"
 
 export default function TradingChart(){
 
-const chartRef = useRef<HTMLDivElement>(null)
+const chartContainerRef = useRef<HTMLDivElement>(null)
 
 useEffect(()=>{
 
-if(!chartRef.current) return
+if(!chartContainerRef.current) return
 
-const chart = createChart(chartRef.current,{
+const chart = createChart(chartContainerRef.current,{
 height:400,
 layout:{
 background:{color:"#020617"},
@@ -28,20 +28,21 @@ const candleSeries = chart.addCandlestickSeries()
 candleSeries.setData([
 { time:"2024-01-01", open:69000, high:70000, low:68000, close:69500 },
 { time:"2024-01-02", open:69500, high:70500, low:69000, close:70200 },
-{ time:"2024-01-03", open:70200, high:71000, low:70000, close:70800 }
+{ time:"2024-01-03", open:70200, high:71000, low:70000, close:70800 },
+{ time:"2024-01-04", open:70800, high:71500, low:70000, close:70500 },
+{ time:"2024-01-05", open:70500, high:72000, low:70200, close:71500 }
 ])
 
-return()=>chart.remove()
+return ()=>chart.remove()
 
 },[])
 
 return(
 
-<div
-ref={chartRef}
-className="w-full rounded-xl"
-/>
+<div className="w-full rounded-xl overflow-hidden">
+<div ref={chartContainerRef}/>
+</div>
 
 )
 
-}
+  }
