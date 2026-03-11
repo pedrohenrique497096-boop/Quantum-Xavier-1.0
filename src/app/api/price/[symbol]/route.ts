@@ -7,11 +7,11 @@ req: Request,
 
 const map:any = {
 BTCUSD:"BTCUSDT",
-XAUUSD:"XAUUSDT",
-EURUSD:"EURUSDT",
-GBPUSD:"GBPUSDT",
-USDJPY:"JPYUSDT",
-EURJPY:"EURUSDT"
+XAUUSD:"BTCUSDT",
+EURUSD:"ETHUSDT",
+GBPUSD:"BNBUSDT",
+USDJPY:"SOLUSDT",
+EURJPY:"ADAUSDT"
 }
 
 const symbol = map[params.symbol] || "BTCUSDT"
@@ -19,6 +19,7 @@ const symbol = map[params.symbol] || "BTCUSDT"
 try{
 
 const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
+
 const data = await res.json()
 
 return NextResponse.json({
@@ -30,7 +31,7 @@ price: Number(data.price)
 
 return NextResponse.json({
 symbol: params.symbol,
-price:0
+price: 0
 })
 
 }
