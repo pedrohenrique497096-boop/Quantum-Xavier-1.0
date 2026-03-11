@@ -1,30 +1,34 @@
 import { NextResponse } from "next/server"
 
+const API_KEY = "1bbb904ae0994fb7b2d120da18c66602"
+
 export async function GET(
 req: Request,
 { params }: { params: { symbol: string } }
 ){
 
+const map:any = {
+BTCUSD:"BTC/USD",
+XAUUSD:"XAU/USD",
+EURUSD:"EUR/USD",
+GBPUSD:"GBP/USD",
+USDJPY:"USD/JPY",
+EURJPY:"EUR/JPY"
+}
+
+const symbol = map[params.symbol]
+
 try{
 
-const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,cardano,binancecoin&vs_currencies=usd")
+const res = await fetch(
+`https://api.twelvedata.com/price?symbol=${symbol}&apikey=${API_KEY}`
+)
 
 const data = await res.json()
 
-const map:any = {
-
-BTCUSD:data.bitcoin.usd,
-XAUUSD:data.ethereum.usd,
-EURUSD:data.solana.usd,
-GBPUSD:data.binancecoin.usd,
-USDJPY:data.cardano.usd,
-EURJPY:data.ethereum.usd
-
-}
-
 return NextResponse.json({
 symbol: params.symbol,
-price: map[params.symbol] || 0
+price: Number(data.price)
 })
 
 }catch{
