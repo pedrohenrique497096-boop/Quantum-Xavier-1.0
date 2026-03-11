@@ -1,40 +1,24 @@
 import random
-from datetime import datetime
 
 signals = []
 
-assets = [
-"BTCUSD",
-"XAUUSD",
-"EURUSD",
-"GBPUSD",
-"USDJPY",
-"EURJPY"
-]
+def analyze_market():
 
-def generate_signals():
+    asset = "BTCUSD"
+
+    entry = random.randint(68000,70000)
+
+    signal = {
+        "asset": asset,
+        "direction": "BUY",
+        "entry": entry,
+        "stop": entry-200,
+        "take1": entry+200,
+        "take2": entry+400,
+        "take3": entry+800,
+        "confidence": random.randint(70,90),
+        "analysis":"Detecção de liquidez institucional e rompimento de estrutura."
+    }
 
     signals.clear()
-
-    for asset in assets:
-
-        if random.random() > 0.6:
-
-            entry = random.uniform(1000,50000)
-
-            signal = {
-                "asset":asset,
-                "direction":random.choice(["BUY","SELL"]),
-                "entry":round(entry,2),
-                "stop":round(entry-200,2),
-                "take1":round(entry+200,2),
-                "take2":round(entry+400,2),
-                "take3":round(entry+800,2),
-                "confidence":random.randint(75,95),
-                "analysis":"Quantum Xavier AI detected market confluence.",
-                "timestamp":str(datetime.utcnow())
-            }
-
-            signals.append(signal)
-
-    return signals
+    signals.append(signal)
