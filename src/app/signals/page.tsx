@@ -1,74 +1,49 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import BottomNav from "@/components/BottomNav"
 
 export default function Signals(){
 
-const [signals,setSignals] = useState<any[]>([])
-
-useEffect(()=>{
-
-function loadSignals(){
-
-fetch("/api/signals")
-.then(res => res.json())
-.then(data => setSignals(data))
-
-}
-
-loadSignals()
-
-const interval = setInterval(loadSignals,15000)
-
-return () => clearInterval(interval)
-
-},[])
-
 return(
 
-<div className="min-h-screen bg-slate-950 text-white p-6 pb-24">
+<div className="min-h-screen bg-slate-950 pb-24 text-white">
 
-<h1 className="text-3xl font-bold mb-6">
+<div className="mx-auto max-w-md p-4">
+
+<h1 className="mb-6 text-3xl font-bold">
 Sinais
 </h1>
 
-<div className="space-y-4">
+<div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
 
-{signals.map((signal,index)=>(
+<p className="text-lg font-semibold">
+XAUUSD • BUY
+</p>
 
-<div
-key={index}
-className="bg-slate-900 p-6 rounded-xl border border-slate-800"
->
+<p className="mt-2 text-sm text-slate-400">
+Confiança 81 %
+</p>
 
-<div className="text-xl font-bold mb-2">
-{signal.asset} • {signal.direction}
-</div>
+<div className="mt-4 grid grid-cols-2 gap-3 text-sm">
 
-<div className="text-sm text-slate-400 mb-4">
-Confiança {signal.confidence} %
-</div>
+<p>Entrada: 5178</p>
+<p>Parada: 5172</p>
 
-<div className="grid grid-cols-2 gap-2 text-sm">
+<p>TP1: 5185</p>
+<p>TP2: 5192</p>
 
-<div>Entrada: {signal.entry}</div>
-<div>Parada: {signal.stop}</div>
-
-<div>TP1: {signal.take1}</div>
-<div>TP2: {signal.take2}</div>
-
-<div>TP3: {signal.take3}</div>
+<p>TP3: 5200</p>
 
 </div>
 
-<div className="mt-4 text-sm text-slate-300">
-{signal.analysis}
-</div>
+<p className="mt-4 text-sm text-slate-300">
+
+Liquidity grab detectado abaixo do suporte.
+Possível continuação de alta no ouro.
+
+</p>
 
 </div>
-
-))}
 
 </div>
 
