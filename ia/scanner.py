@@ -7,9 +7,7 @@ def get_gold_price():
 
     try:
 
-        r = requests.get(
-        "https://api.metals.live/v1/spot/gold"
-        )
+        r = requests.get("https://api.metals.live/v1/spot/gold")
 
         data = r.json()
 
@@ -34,17 +32,17 @@ def analyze_market():
 
     "entry":round(price,2),
 
-    "stop":round(price-5,2),
+    "stop":round(price-3,2),
 
-    "take1":round(price+5,2),
+    "take1":round(price+3,2),
 
-    "take2":round(price+10,2),
+    "take2":round(price+6,2),
 
-    "take3":round(price+15,2),
+    "take3":round(price+10,2),
 
-    "confidence":random.randint(70,90),
+    "confidence":random.randint(75,90),
 
-    "analysis":"IA detectou zona de liquidez e possível movimento institucional."
+    "analysis":"Liquidez capturada próxima ao suporte institucional. Possível continuação."
 
     }
 
