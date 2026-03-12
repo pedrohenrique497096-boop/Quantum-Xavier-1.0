@@ -1,9 +1,27 @@
 export async function fetchAllPrices(){
 
-const res = await fetch("/api/prices")
+try{
+
+const res = await fetch("https://api.metals.live/v1/spot/gold")
 
 const data = await res.json()
 
-return data
+return [
+{
+symbol:"XAUUSD",
+price:data[0].price
+}
+]
+
+}catch{
+
+return [
+{
+symbol:"XAUUSD",
+price:null
+}
+]
+
+}
 
 }
