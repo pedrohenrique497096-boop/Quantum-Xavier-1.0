@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from ia.scanner import signals, start_scanner
+from ia.scanner import signals, analyze_market
 import threading
+import time
 
 app = FastAPI()
 
@@ -9,9 +10,15 @@ def get_signals():
     return signals
 
 
-def run_scanner():
-    start_scanner()
+def scanner_loop():
+
+    while True:
+
+        analyze_market()
+
+        time.sleep(20)
 
 
-thread = threading.Thread(target=run_scanner)
+thread = threading.Thread(target=scanner_loop)
+
 thread.start()
