@@ -1,34 +1,52 @@
+import requests
 import random
-import time
 
 signals = []
 
+def get_gold_price():
+
+    try:
+
+        r = requests.get(
+        "https://api.metals.live/v1/spot/gold"
+        )
+
+        data = r.json()
+
+        return data[0]["price"]
+
+    except:
+
+        return 2000
+
+
 def analyze_market():
 
-    asset = "BTCUSD"
+    price = get_gold_price()
 
-    entry = random.randint(68000,70000)
+    direction = random.choice(["BUY","SELL"])
 
     signal = {
-        "asset": asset,
-        "direction": "BUY",
-        "entry": entry,
-        "stop": entry-200,
-        "take1": entry+200,
-        "take2": entry+400,
-        "take3": entry+800,
-        "confidence": random.randint(70,90),
-        "analysis":"Detecção de liquidez institucional e rompimento de estrutura."
+
+    "asset":"XAUUSD",
+
+    "direction":direction,
+
+    "entry":round(price,2),
+
+    "stop":round(price-5,2),
+
+    "take1":round(price+5,2),
+
+    "take2":round(price+10,2),
+
+    "take3":round(price+15,2),
+
+    "confidence":random.randint(70,90),
+
+    "analysis":"IA detectou zona de liquidez e possível movimento institucional."
+
     }
 
     signals.clear()
     signals.append(signal)
-
-
-def start_scanner():
-
-    while True:
-
-        analyze_market()
-
-        time.sleep(30)
